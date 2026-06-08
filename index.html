@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Heights feed: Be truthful or look for the views??</title> 
+    <style>
+        :root {
+            --ig-bg: #000000;
+            --card-bg: #121212;
+            --border-gray: #262626;
+            --text-white: #f5f5f5;
+            --text-gray: #a8a8a8;
+            --insta-blue: #0095f6;
+            --alert-red: #ed4956;
+            --gold-star: #ffd700;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--ig-bg);
+            color: var(--text-white);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .phone-wrapper {
+            max-width: 420px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px solid var(--border-gray);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin: 5px 0 0 0;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            background: #1c1c1e;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-gray);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        #num-followers { color: var(--insta-blue); }
+        #num-truth { color: var(--gold-star); }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .post-card {
+            background: #1a1a1a;
+            border: 1px solid var(--border-gray);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .post-tag {
+            font-size: 0.75rem;
+            color: var(--insta-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .post-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .intel-box {
+            background: rgba(255, 215, 0, 0.08);
+            border-left: 3px solid var(--gold-star);
+            padding: 10px;
+            font-size: 0.85rem;
+            color: #ffe066;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .action-zone {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            font-family: inherit;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-clout {
+            background: var(--insta-blue);
+            color: white;
+        }
+
+        .btn-truth {
+            background: #262626;
+            color: var(--text-white);
+            border: 1px solid var(--border-gray);
+        }
+
+        .btn-truth:hover {
+            background: #363636;
+        }
+
+        .btn-next {
+            background: var(--text-white);
+            color: black;
+            width: 100%;
+            margin-top: 15px;
+            display: none;
+        }
+
+        button:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .feed-commentary {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            min-height: 50px;
+            padding: 10px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        /*Its like 1 am rn lets see how long this takes me*/
+        .end-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .end-title {
+            font-size: 1.5rem;
+            color: var(--gold-star);
+            margin-bottom: 10px;
+        }
+
+        .end-desc {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-wrapper">
+    
+    <!-- Header -->
+    <div class="header">
+        <h1>Insta account: @GardenHeights_HS</h1>
+        <p>A simulation Showing how misinformation can spread so easily... • Case <span id="case-idx">1</span>/4</p>
+    </div>
+
+    
+    <div class="stats-row">
+        <div class="stat-item">
+            <span id="num-followers" class="stat-num">5,000</span>
+            <span class="stat-label">Followers</span>
+        </div>
+        <div class="stat-item">
+            <span id="num-truth" class="stat-num">50%</span>
+            <span class="stat-label">Truthfullness</span>
+        </div>
+    </div>
+
+    <!--Gameplay View -->
+    <div id="game-view">
+        <div class="post-card">
+            <div id="post-tag" class="post-tag">BREAKING NEWS</div>
+            <div id="situation-text" class="post-text">Loading situation room...</div>
+            <div id="intel-text" class="intel-box"> Starr's Notebook: ...</div>
+        </div>
+
+        <div class="action-zone">
+            <button id="btn-clout" class="btn-clout" onclick="makeChoice('clout')"> Post Immediately </button>
+            <button id="btn-truth" class="btn-truth" onclick="makeChoice('truth')"> Investigate Deeper</button>
+        </div>
+
+        <div id="feed-commentary" class="feed-commentary"></div>
+        <button id="btn-next" class="btn-next" onclick="nextLevel()">Tap to Continue </button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="end-view" class="end-screen">
+        <div id="end-title" class="end-title">GAME OVER</div>
+        <div id="end-desc" class="end-desc">Generating a suitable profile...</div>
+        <button class="btn-clout" style="width: 100%;" onclick="location.reload()">Try Again</button>
+    </div>
+
+</div>
+
+<script>
+    let followers = 5000;
+    let truthScore = 50;
+    let stage = 1;
+    let currentData = null;
+
+    const levels = [
+        {
+            tag: "THE SHOOTING",
+            situation: "A live video goes viral showing the immediate aftermath of Officer 115 shooting Khalil. Rumors are spreading online that Khalil was a gang lord acossiated with dealing drugs.",
+            intel: "I was literally in the passenger seat. Khalil wasn't doing anything wrong, he was just checking on me. Officer 115 panicked and shot him because Khalil looked at me?",
+            cloutFollowers: 4500, cloutTruth: -25,
+            truthFollowers: -1200, truthTruth: 25,
+            textClout: " You reposted the unverified rumors and tagged all your friends. You gained 4,500 followers, but you helped an innocent victim get painted as a monster.",
+            textTruth: " You didn't post the rumors. Instead, you spent hours looking up every detail, every hint as to what actually happened. People unfollowed you because of your boring ass page (-1,200)"
+        },
+        {
+            tag: "THE TV INTERVIEW",
+            situation: "Officer 115's father does a massive TV interview, crying and claiming his son is the real victim and that Garden Heights is full of criminals.",
+            intel: "This is a total setup to sway the grand jury. They are trying to hide the officer's past complaints and important details about him.",
+            cloutFollowers: 6000, cloutTruth: -20,
+            truthFollowers: -2000, truthTruth: 20,
+            textClout: "You clipped the emotional interview for a reel because it was trending everywhere (+6,000 followers). However, your comment section is now fighting each other and it's not pretty.",
+            textTruth: "You refused to share the interview bait. You dug into public records and posted a thread/story showing how the network edited out the officer's history of aggression. Your account becomes more dry, and you lose more followers."
+        },
+        {
+            tag: "THE SCHOOL PROTEST",
+            situation: "The students at Williamson High decide to stage a massive walkout 'for Khalil' but all they wanted to do was skip their Chem test.",
+            intel: "Chris and Maya want to talk about real change, but Hailey is literally just using Khalil's death as an excuse to go eat lunch early.",
+            cloutFollowers: 8000, cloutTruth: -15,
+            truthFollowers: -800, truthTruth: 15,
+            textClout: "You posted an aesthetic selfie at the protest with an unrelated caption. It went viral at your school (+8,000 followers), But deep down you realise you used an actual tragedy as an Instagram post.",
+            textTruth: "You posted a story calling out the fake intentions of kids using it to skip class, and re-directed your followers to real donation links for Khalil's family. Most of your classmates blocked you, and you lost some friends."
+        },
+        {
+            tag: "THE RIOTS & THE STORE",
+            situation: "The grand jury decides not to indict Officer 115. Massive protests erupt, and a King Lord gang member signals towards burning Maverick's store down.",
+            intel: "King is trying to blame the community for his own anger. My dad's store provides food for the whole neighborhood; Burning it down wont accomplish anything?",
+            cloutFollowers: 12000, cloutTruth: -30,
+            truthFollowers: -1500, truthTruth: 30,
+            textClout: "You livestreamed the fires on youtube with a clickbait thumbnail and title. You gained a massive 12,000 subscribers/followers, but you hyped up the destruction of your own community just to fit in.",
+            textTruth: "You instantly rushed to instagram and told everyone you knew to stay clear of that area and to call the firefighters, you post on your platform to get as many people in the area as possible to help stop the building from burning, however lots of people unfollowed you because you were 'annoying'"
+        }
+    ];
+
+    function updateDisplay() {
+            document.getElementById('num-followers').innerText = followers.toLocaleString();
+        document.getElementById('num-truth').innerText = truthScore + "%";
+        document.getElementById('case-idx').innerText = stage;
+    }
+
+    function loadLevel() {
+        document.getElementById('feed-commentary').innerText = "";
+            document.getElementById('btn-next').style.display = 'none';
+        setButtonsDisabled(false);
+
+        currentData = levels[stage - 1];
+        document.getElementById('post-tag').innerText = currentData.tag;
+         document.getElementById('situation-text').innerText = currentData.situation;
+        document.getElementById('intel-text').innerText = "Starr's Notebook: " + currentData.intel;
+    }
+
+    function setButtonsDisabled(status) {
+        document.getElementById('btn-clout').disabled = status;
+        document.getElementById('btn-truth').disabled = status;
+    }
+
+    function makeChoice(type) {
+        setButtonsDisabled(true);
+        let feedback = "";
+
+        if (type === 'clout') {
+            followers += currentData.cloutFollowers;
+            truthScore += currentData.cloutTruth;
+            feedback = currentData.textClout;
+        } else {
+            followers += currentData.truthFollowers;
+            truthScore += currentData.truthTruth;
+            feedback = currentData.textTruth;
+        }
+
+        // Clamp values
+        truthScore = Math.max(0, Math.min(100, truthScore));
+        if (followers < 0) followers = 0;
+
+        document.getElementById('feed-commentary').innerText = feedback; //yo its 5 am im so tired i just wanna finish this
+        document.getElementById('btn-next').style.display = 'block';
+        updateDisplay();
+    }
+
+    function nextLevel() {
+        stage++;
+        if (stage > levels.length) {
+            showGameOver();
+        } else {
+            loadLevel();
+        }
+    }
+
+    function showGameOver() {
+        document.getElementById('game-view').style.display = 'none';
+        document.getElementById('end-view').style.display = 'block';
+        
+        let title = "";
+        let desc = "";//SO CLOSE OMG PLEASEEE
+
+        if (truthScore >= 80) {
+            title = "THE REAL VOICE";
+            desc = `Final Stats: ${followers.toLocaleString()} Followers • ${truthScore}% Truth\n\nYou did exactly what Starr did, you realized your voice is your weapon. You didn't care about getting famous or losing followers. You exposed Officer 115, called out King, and protected Khalil's name.`;
+        } else if (truthScore <= 20) {
+            title = "THE CLOUT CHASER";
+            desc = `Final Stats: ${followers.toLocaleString()} Followers • ${truthScore}% Truth\n\nYou optimized your account completely for the algorithm. You exploited a tragedy for views, posted fake news, completely milked events for clout. Your follower count is huge, but you ended up acting exactly like the biased news person that Starr was fighting against.`;
+        } else {
+            title = "THE BALANCED INFLUENCER";
+            desc = `Final Stats: ${followers.toLocaleString()} Followers • ${truthScore}% Truth\n\nYou tried your best to navigate the mess. You posted the truth when things got too out of hand, but you also posted some trendy stuff to make sure your account didn't completely tank. A realistic look at trying to survive high school social media.`;
+        }
+
+        document.getElementById('end-title').innerText = title;
+        document.getElementById('end-desc').innerText = desc;
+    }
+
+    // IM FINALLY FUKIN DONE OMGOMGOMGOG
+    // 6 AM BTW
+    loadLevel();
+    updateDisplay();
+</script>
+</body>
+</html>
